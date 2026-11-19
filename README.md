@@ -35,7 +35,7 @@ O objetivo do projeto é facilitar o gerenciamento de produtos, endereços, tran
 2. Inicie os serviços Apache e MySQL.
 3. Clone este repositório para a pasta `htdocs` do XAMPP.
 4. Crie um banco de dados chamado `gerenciador_logistico` no phpMyAdmin.
-5. Crie as tabelas necessárias utilizando os comandos SQL do projeto.
+5. Importe o arquivo database.sql no phpMyAdmin para criar o banco de dados e suas tabelas.
 6. Confira as configurações de conexão no arquivo `includes/conexao.php`.
 7. Acesse pelo navegador:
 
