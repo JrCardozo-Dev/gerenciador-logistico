@@ -41,38 +41,193 @@ $fretes = $conexao->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Fretes Cadastrados</title>
+    <title>Fretes Cadastrados - Gerenciador Logístico</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f5f9;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #8529a7, #641b82);
+            padding: 25px 15px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar h4 {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 0 10px;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .sidebar .nav-link {
+            color: white;
+            padding: 11px 12px;
+            margin-bottom: 7px;
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 8px;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(255,255,255,0.18);
+            border-color: white;
+            transform: translateX(3px);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.22);
+            border-color: white;
+            font-weight: bold;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+            padding: 35px;
+        }
+
+        .page-title {
+            font-weight: 700;
+            color: #30243a;
+        }
+
+        .table-card {
+            border: none;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .table thead th {
+            background-color: #f0e6f5;
+            color: #41364a;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            vertical-align: middle;
+        }
+
+        .btn-primary {
+            background-color: #8529a7;
+            border-color: #8529a7;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: #641b82;
+            border-color: #641b82;
+        }
+
+        @media(max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-<div class="container mt-5">
+<nav class="sidebar text-white">
 
-    <h2>Fretes Cadastrados</h2>
+    <h4>📦 Gerenciador Logístico</h4>
 
-    <p class="text-muted">
-        Consulte todos os transportes registrados no sistema.
-    </p>
+    <ul class="nav flex-column">
 
-    <div class="mb-3">
-        <a href="fretes.php" class="btn btn-primary">
-            Novo Frete
-        </a>
+        <li class="nav-item">
+            <a class="nav-link" href="index.php">🏠 Dashboard</a>
+        </li>
 
-        <a href="index.php" class="btn btn-secondary">
-            Voltar ao Dashboard
-        </a>
+        <li class="nav-item">
+            <a class="nav-link" href="produtos.php">➕ Cadastrar produto</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="lista_produtos.php">📦 Produtos cadastrados</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="enderecos.php">➕ Cadastrar endereço</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="lista_enderecos.php">📍 Endereços cadastrados</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="transportadoras.php">➕ Cadastrar transportadora</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="lista_transportadoras.php">🚚 Transportadoras cadastradas</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="fretes.php">📝 Gerar frete</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="lista_fretes.php">📋 Fretes cadastrados</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="relatorios.php">📊 Relatórios</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+<main class="main-content">
+
+    <div class="mb-4">
+
+        <h2 class="page-title">📋 Fretes cadastrados</h2>
+
+        <p class="text-muted">
+            Consulte todos os transportes registrados no sistema.
+        </p>
+
     </div>
 
-    <div class="card shadow-sm p-4">
+    <div class="mb-4">
+
+        <a href="fretes.php" class="btn btn-primary">
+            ➕ Novo frete
+        </a>
+
+    </div>
+
+    <div class="card shadow-sm table-card">
 
         <div class="table-responsive">
 
-            <table class="table table-striped table-hover">
+            <table class="table table-hover align-middle">
 
-                <thead class="table-dark">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Produto</th>
@@ -92,6 +247,7 @@ $fretes = $conexao->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                         <?php foreach ($fretes as $frete): ?>
 
                             <tr>
+
                                 <td><?= $frete["id"] ?></td>
 
                                 <td>
@@ -119,8 +275,11 @@ $fretes = $conexao->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                                 </td>
 
                                 <td>
-                                    <?= htmlspecialchars($frete["status"]) ?>
+                                    <span class="badge bg-warning text-dark">
+                                        <?= htmlspecialchars($frete["status"]) ?>
+                                    </span>
                                 </td>
+
                             </tr>
 
                         <?php endforeach; ?>
@@ -128,7 +287,7 @@ $fretes = $conexao->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                     <?php else: ?>
 
                         <tr>
-                            <td colspan="8" class="text-center">
+                            <td colspan="8" class="text-center text-muted py-4">
                                 Nenhum frete cadastrado ainda.
                             </td>
                         </tr>
@@ -143,7 +302,7 @@ $fretes = $conexao->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
     </div>
 
-</div>
+</main>
 
 </body>
 </html>
